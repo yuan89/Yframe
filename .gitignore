@@ -1,0 +1,5 @@
+# 排除 .idea 文件夹中的所有文件
+.idea/*
+
+# 排除 .DS_Store 文件（只适用于 macOS）
+.DS_Store
