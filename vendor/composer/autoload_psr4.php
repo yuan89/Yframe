@@ -6,5 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'yframe\\' => array($baseDir . '/src'),
+    'Yframe\\' => array($baseDir . '/src'),
+    'App\\' => array($baseDir . '/app'),
 );

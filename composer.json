@@ -1,7 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "Yframe\\": "src/"
+            "Yframe\\": "src/",
+            "App\\": "app/"
         }
     }
 }

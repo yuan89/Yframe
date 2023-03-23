@@ -7,6 +7,15 @@ class Router
     // 存储路由规则
     private $routes = [];
 
+    // 默认路由
+    protected $defaultHandler;
+
+
+    public function setDefaultHandler(callable $handler)
+    {
+        $this->defaultHandler = $handler;
+    }
+
     /**
      * 添加路由规则
      *
@@ -46,9 +55,14 @@ class Router
             }
         }
 
-        // 没有找到匹配的路由规则，返回 404
-        header("HTTP/1.0 404 Not Found");
-        echo '404 Not Found';
+        // 如果没有找到匹配的路由，调用默认处理程序
+        if ($this->defaultHandler) {
+            call_user_func($this->defaultHandler);
+        } else {
+            // 如果未设置默认处理程序，则返回一个默认的 404 响应
+            header("HTTP/1.0 404 Not Found");
+            echo "404 Not Found";
+        }
     }
 }
 

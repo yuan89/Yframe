@@ -30,18 +30,17 @@ class Application
     {
         // 在此注册您需要的服务
         $this->services['router'] = new Router();
-
-        // 添加路由规则
-        $this->services['router']->addRoute('GET', '/', function () {
-            // 调用首页控制器的 index 方法
-            $controller = new \Yframe\Controllers\HomeController();
-            $controller->index();
-        });
-
+        
         $this->services['router']->addRoute('GET', '/users/(\d+)', function ($id) {
             // 调用用户控制器的 show 方法
-            $controller = new \Yframe\Controllers\UsersController();
+            $controller = new \App\Controllers\UsersController();
             $controller->show($id);
+        });
+
+        $this->services['router']->setDefaultHandler(function () {
+            // 调用首页控制器的 index 方法
+            $controller = new \App\Controllers\HomeController();
+            $controller->index();
         });
     }
 
