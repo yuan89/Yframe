@@ -1,29 +1,59 @@
 ````
-yFrame/
-├── app/                   (应用代码)
-│   ├── controllers/       (控制器)
-│   ├── models/            (模型)
-│   └── views/             (视图)
-├── config/                (配置文件)
-│   ├── app.php
-│   └── database.php
-├── public/                (公共资源和入口文件)
-│   ├── assets/            (资源文件，如 CSS、JavaScript、图片等)
-│   ├── css/
-│   ├── js/
-│   ├── .htaccess
-│   └── index.php          (入口文件)
-├── src/                   (框架核心代码)
-│   ├── core/              (核心类库)
-│   ├── helpers/           (助手函数)
-│   ├── libraries/         (第三方库)
-│   └── middleware/        (中间件)
-├── storage/               (存放日志、缓存等)
-│   ├── cache/
-│   └── logs/
-├── tests/                 (测试代码)
-├── vendor/                (Composer 依赖)
-├── .env                   (环境变量)
-├── .gitignore
-├── composer.json
-└── composer.lock
+YFrame
+│  .gitignore
+│  composer.json
+│  composer.lock
+│  README.MD
+│  Y.php
+│
+├─.idea
+│      .gitignore
+│      misc.xml
+│      modules.xml
+│      vcs.xml
+│      workspace.xml
+│      yFrame.iml
+│
+├─app
+│  ├─controllers
+│  │      HomeController.php
+│  │      UsersController.php
+│  │
+│  ├─models
+│  │      BaseModel.php
+│  │      UserModel.php
+│  │
+│  └─views
+│      └─home
+│              index.php
+│
+├─config
+│      app.php
+│      database.php
+│
+├─public
+│  │  index.php
+│  │
+│  ├─assets
+│  ├─css
+│  └─js
+├─src
+│  └─core
+│          Application.php
+│          Database.php
+│          Router.php
+│
+└─vendor
+    │  autoload.php
+    │
+    └─composer
+            autoload_classmap.php
+            autoload_namespaces.php
+            autoload_psr4.php
+            autoload_real.php
+            autoload_static.php
+            ClassLoader.php
+            installed.json
+            installed.php
+            InstalledVersions.php
+            LICENSE

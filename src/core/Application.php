@@ -10,6 +10,8 @@ class Application
     // 存储已注册的服务
     private $services = [];
 
+    private $serviceLocator;
+
     /**
      * Application 构造函数
      *
@@ -28,16 +30,26 @@ class Application
      */
     private function initServices()
     {
+        $this->serviceLocator = new ServiceLocator();
         // 在此注册您需要的服务
-        $this->services['router'] = new Router();
-        
-        $this->services['router']->addRoute('GET', '/users/(\d+)', function ($id) {
+        $this->serviceLocator->addService('router', new Router());
+        $this->serviceLocator->addService('db', Database::getInstance($this->config['database']));
+
+        $this->initRouter();
+    }
+
+    /**
+     * 初始化router
+     */
+    private function initRouter()
+    {
+        $this->serviceLocator->getService('router')->addRoute('GET', '/users/(\d+)', function ($id) {
             // 调用用户控制器的 show 方法
             $controller = new \App\Controllers\UsersController();
             $controller->show($id);
         });
 
-        $this->services['router']->setDefaultHandler(function () {
+        $this->serviceLocator->getService('router')->setDefaultHandler(function () {
             // 调用首页控制器的 index 方法
             $controller = new \App\Controllers\HomeController();
             $controller->index();
@@ -50,7 +62,7 @@ class Application
     public function run()
     {
         // 根据请求执行对应的控制器和动作
-        $this->services['router']->dispatch();
+        $this->serviceLocator->getService('router')->dispatch();
     }
 
     /**
@@ -61,7 +73,7 @@ class Application
      */
     public function getService($name)
     {
-        return $this->services[$name] ?? null;
+        return $this->serviceLocator->getService($name);
     }
 }
 

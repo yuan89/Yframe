@@ -7,12 +7,15 @@ use Yframe\Core\Database;
 
 class UserModel extends BaseModel
 {
-    public function __construct(int $id)
+    public function __construct()
     {
+    }
 
-        $stmt = Y::$db->prepare('SELECT * FROM users WHERE id = :id');
-        $stmt->execute([':id' => $id]);
-        $user = $stmt->fetch();
+    public function getUser(int $id)
+    {
+       $stmt = Y::$app->getService('db')->prepare('SELECT * FROM users WHERE id = :id');
+            $stmt->execute([':id' => $id]);
+            $user = $stmt->fetch();
 
         if ($user) {
             parent::__construct($user);
@@ -20,4 +23,5 @@ class UserModel extends BaseModel
             throw new \Exception('User not found.');
         }
     }
+
 }
