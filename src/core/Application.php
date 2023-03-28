@@ -2,6 +2,8 @@
 
 namespace Yframe\Core;
 
+use Yframe\Core\Logger;
+
 class Application
 {
     // 存储配置信息
@@ -34,6 +36,8 @@ class Application
         // 在此注册您需要的服务
         $this->serviceLocator->addService('router', new Router());
         $this->serviceLocator->addService('db', Database::getInstance($this->config['database']));
+        $this->serviceLocator->addService('cache', new Cache($this->config['cache']['cache_path']));
+        $this->serviceLocator->addService('logger', new Logger($this->config['logger']['log_path']));
 
         $this->initRouter();
     }
@@ -45,13 +49,13 @@ class Application
     {
         $this->serviceLocator->getService('router')->addRoute('GET', '/users/(\d+)', function ($id) {
             // 调用用户控制器的 show 方法
-            $controller = new \App\Controllers\UsersController();
+            $controller = new \App\Controllers\UsersController($this->serviceLocator);
             $controller->show($id);
         });
 
         $this->serviceLocator->getService('router')->setDefaultHandler(function () {
             // 调用首页控制器的 index 方法
-            $controller = new \App\Controllers\HomeController();
+            $controller = new \App\Controllers\HomeController($this->serviceLocator);
             $controller->index();
         });
     }

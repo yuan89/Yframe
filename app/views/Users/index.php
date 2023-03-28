@@ -7,7 +7,22 @@
 </head>
 <body>
 <h1>user</h1>
-<p></p>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <td><?php echo htmlspecialchars($id); ?></td>
+    </tr>
+    <tr>
+        <th>Name</th>
+        <td><?php echo htmlspecialchars($name); ?></td>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <td><?php echo htmlspecialchars($age); ?></td>
+    </tr>
+</table>
+
 </body>
 </html>
 
