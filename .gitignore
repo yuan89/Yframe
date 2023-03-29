@@ -3,3 +3,5 @@
 
 # 排除 .DS_Store 文件（只适用于 macOS）
 .DS_Store
+
+storage/*
