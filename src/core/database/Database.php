@@ -1,6 +1,6 @@
 <?php
 
-namespace Yframe\Core;
+namespace Yframe\Core\Database;
 
 use PDO;
 use PDOException;
@@ -9,7 +9,7 @@ class Database
 {
     private static $instance;
 
-    public static function getInstance(array $config = [])
+    public static function getConnection(array $config = [])
     {
         if (self::$instance === null) {
             try {

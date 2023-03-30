@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Model\User;
 use Yframe\Core\ServiceLocator;
 
 class UsersController extends BaseController
@@ -31,14 +31,8 @@ class UsersController extends BaseController
         }
 
         // 这里我们创建一个假的用户数据，实际应用中，您可能需要从数据库中获取
-        $user = new UserModel();
-        $user->getUser($id);
-        $data = [
-            'id' => $user->get('id'),
-            'name' => $user->get('name'),
-            'age' => $user->get('age')
-        ];
-
+        $data = User::getUserById(1);
+        print_r($data);exit;
         $this->render('users/index', $data);
     }
 

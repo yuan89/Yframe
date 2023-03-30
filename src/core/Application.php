@@ -2,7 +2,7 @@
 
 namespace Yframe\Core;
 
-use Yframe\Core\Logger;
+use Yframe\Core\Database\Database;
 
 class Application
 {
@@ -35,7 +35,7 @@ class Application
         $this->serviceLocator = new ServiceLocator();
         // 在此注册您需要的服务
         $this->serviceLocator->addService('router', new Router());
-        $this->serviceLocator->addService('db', Database::getInstance($this->config['database']));
+        $this->serviceLocator->addService('db', Database::getConnection($this->config['database']));
         $this->serviceLocator->addService('cache', new Cache($this->config['cache']['cache_path']));
         $this->serviceLocator->addService('logger', new Logger($this->config['logger']['log_path']));
 
