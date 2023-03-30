@@ -32,7 +32,6 @@ class UsersController extends BaseController
 
         // 这里我们创建一个假的用户数据，实际应用中，您可能需要从数据库中获取
         $data = User::getUserById(1);
-        print_r($data);exit;
         $this->render('users/index', $data);
     }
 

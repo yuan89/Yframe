@@ -1,6 +1,7 @@
 <?php
 namespace Yframe\Core\Database;
 
+use PDO;
 
 class QueryBuilder
 {
@@ -53,16 +54,22 @@ class QueryBuilder
             $sql .= " ORDER BY " . implode(', ', $orders);
         }
 
-        echo $sql;
         // 执行查询并返回结果
         // 准备查询
         $stmt = $this->connection->prepare($sql);
+
+        // 绑定参数
+        if (!empty($this->conditions)) {
+            for ($i = 1; $i <= count($this->conditions); $i++) {
+                $stmt->bindValue($i, $this->conditions[$i - 1][2]);
+            }
+        }
 
         // 执行查询
         $stmt->execute();
 
         // 获取结果
-        $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $results = $stmt->fetch(PDO::FETCH_ASSOC);
         // 在这里，您需要使用您的数据库连接执行查询
         // 并将结果转换为适当的模型实例
 

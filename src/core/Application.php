@@ -3,6 +3,8 @@
 namespace Yframe\Core;
 
 use Yframe\Core\Database\Database;
+use Yframe\Core\Database\ActiveRecord;
+
 
 class Application
 {
@@ -38,6 +40,8 @@ class Application
         $this->serviceLocator->addService('db', Database::getConnection($this->config['database']));
         $this->serviceLocator->addService('cache', new Cache($this->config['cache']['cache_path']));
         $this->serviceLocator->addService('logger', new Logger($this->config['logger']['log_path']));
+
+        ActiveRecord::setConnection($this->serviceLocator->getService('db'));
 
         $this->initRouter();
     }

@@ -4,22 +4,21 @@ namespace Yframe\Core\Database;
 
 use PDO;
 
-abstract class BaseModel
+class ActiveRecord
 {
     protected $table;
     protected $primaryKey = 'id';
     protected $pdo;
-    protected $connection;
+    protected static $connection;
 
-    public function __construct($connection)
+    public static function setConnection($connection)
     {
-        //$this->pdo = Database::getConnection();
-        $this->connection = $connection;
+        self::$connection = $connection;
     }
 
     public  function query()
     {
-        return new QueryBuilder($this->table, $this->connection);
+        return new QueryBuilder($this->table, self::$connection);
     }
 
     public function all()

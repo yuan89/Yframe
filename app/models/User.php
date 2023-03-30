@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Yframe\Core\Database\BaseModel;
+use Yframe\Core\Database\ActiveRecord;
 
-class User extends BaseModel
+class User extends ActiveRecord
 {
     protected $table = 'users';
 }
