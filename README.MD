@@ -1,65 +1,50 @@
 ````
-E:.
-|   .gitignore
-|   composer.json
-|   composer.lock
-|   README.MD
-|   Y.php
-|
-+---.idea
-|       .gitignore
-|       misc.xml
-|       modules.xml
-|       vcs.xml
-|       workspace.xml
-|       yFrame.iml
-|
-+---app
-|   +---controllers
-|   |       BaseController.php
-|   |       HomeController.php
-|   |       UsersController.php
-|   |
-|   +---models
-|   |       BaseModel.php
-|   |       UserModel.php
-|   |
-|   \---views
-|       +---home
-|       |       index.php
-|       |
-|       \---Users
-|               index.php
-|
-+---config
-|       app.php
-|       database.php
-|
-+---public
-|   |   index.php
-|   |
-|   +---assets
-|   +---css
-|   \---js
-+---src
-|   \---core
-|           Application.php
-|           Controller.php
-|           Database.php
-|           Router.php
-|           ServiceLocator.php
-|
-\---vendor
-    |   autoload.php
-    |
-    \---composer
-            autoload_classmap.php
-            autoload_namespaces.php
-            autoload_psr4.php
-            autoload_real.php
-            autoload_static.php
-            ClassLoader.php
-            installed.json
-            installed.php
-            InstalledVersions.php
-            LICENSE
+Y.php
+app
+  Model
+    User.php
+  controllers
+    BaseController.php
+    HomeController.php
+    UsersController.php
+  models
+    User.php
+  views
+    Users
+      index.php
+    home
+      index.php
+config
+  app.php
+  database.php
+public
+  assets
+  css
+  index.php
+  js
+src
+  Core
+    Application.php
+    Cache.php
+    Controller.php
+    Database
+      BaseModel.php
+      Database.php
+      QueryBuilder.php
+    Logger.php
+    Router.php
+    ServiceLocator.php
+storage
+  caches
+  logs
+vendor
+  autoload.php
+			
+框架特点：
+1、轻型的MVC架构
+2、基于composer组织代码结构，PSR4规范
+3、包含日志、缓存、路由、模型、控制器、模板视图、ORM
+4、ORM包含简单的动态查询构造器
+5、包含一个中央服务定位器ServiceLocator，一个依赖注入容器Container(构造函数注入和属性注入)
+
+		

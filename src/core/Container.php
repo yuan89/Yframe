@@ -26,12 +26,45 @@ class Container
 
     private function build($service)
     {
-        if (is_callable($service)) {
-            return $service($this);
-        } elseif (is_string($service) && class_exists($service)) {
-            return new $service;
+        $reflector = new \ReflectionClass($service);
+
+        // 构造函数注入
+        if ($constructor = $reflector->getConstructor()) {
+            $constructorParams = $constructor->getParameters();
+            $dependencies = $this->resolveDependencies($constructorParams);
+            $instance = $reflector->newInstanceArgs($dependencies);
+        } else {
+            $instance = $reflector->newInstance();
         }
 
-        throw new \Exception("Service could not be built: " . print_r($service, true));
+        // 属性注入
+        foreach ($reflector->getProperties() as $property) {
+            if ($property->isPublic() && $this->hasService($property->getName())) {
+                $property->setValue($instance, $this->get($property->getName()));
+            }
+        }
+
+        return $instance;
+    }
+
+    private function hasService($name)
+    {
+        return isset($this->services[$name]);
+    }
+
+    private function resolveDependencies($parameters)
+    {
+        $dependencies = [];
+
+        foreach ($parameters as $parameter) {
+            $dependency = $parameter->getClass();
+            if ($dependency === null) {
+                throw new \Exception("Unable to resolve dependency: " . $parameter->getName());
+            }
+
+            $dependencies[] = $this->get($dependency->getName());
+        }
+
+        return $dependencies;
     }
 }
